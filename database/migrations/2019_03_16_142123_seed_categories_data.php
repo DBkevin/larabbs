@@ -43,6 +43,6 @@ class SeedCategoriesData extends Migration
     public function down()
     {
         //truncate() 方法为清空
-        DB::table('catagories')->truncate();
+        DB::table('categories')->truncate();
     }
 }
