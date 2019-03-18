@@ -19,6 +19,6 @@ class TopicObserver
         //
     }
     public function saveting(Topic $topic){
-        $topic->experpt=make_excerpt($topic->body);
+        $topic->excerpt=make_excerpt($topic->body);
     }
 }
