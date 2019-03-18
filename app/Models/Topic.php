@@ -17,4 +17,28 @@ class Topic extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeWithOrder($query,$order){
+        //不同的排序,使用不同的数据读取逻辑
+        switch($order){
+            case'recent':
+                $query->recent();
+                break;
+            default:
+                $query->recentRepied();
+                break;
+        }
+        //预加载,防止N+1问题
+        return $query->with('user','category');
+    }
+
+    public function scopeRecentRepied($query)
+    {
+        //当话题有新回复时,我们将编写逻辑赖更新话题模型reply_count的属性
+        //此时会自动触发框架对数据模型得updated_at进行更新
+        return $query->orderBy('updated_at','desc');
+    }
+    public function scopeRecent($query){
+        return $query->orderBy('created_at','desc');
+    }
+
 }
