@@ -15,6 +15,8 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Models\User::class, function (Faker $faker) {
+    $created_at=$faker->dateTimeThisYear();
+    $updated_at=$faker->dateTimeThisMonth();
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -22,5 +24,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password' => bcrypt('123123'),
         'introduction'=>$faker->sentence(),
         'remember_token' => Str::random(10),
+        'created_at'=>$created_at,
+        'updated_at'=>$updated_at,
     ];
 });
