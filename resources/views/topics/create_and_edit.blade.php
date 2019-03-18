@@ -57,7 +57,7 @@
   <script type="text/javascript" src="{{ asset('js/simditor.min.js') }}"></script>
 
   <script>
-    $(document).ready(function() {
+    /*$(document).ready(function() {
       var editor = new Simditor({
         textarea: $('#editor'),
           upload: {
@@ -73,6 +73,7 @@
 
       });
     });
+    */
   </script>
 @stop
 @endsection
