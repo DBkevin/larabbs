@@ -10,6 +10,7 @@
     <title>@yield('title','LaraBBS')--Larabbs进阶教程</title>
     <!--Styles-->
 <link rel="stylesheet" href="{{mix('css/app.css')}}">
+@yield('styles')
 </head>
 <body>
     <div id="app" class="{{route_class()}}-page">
@@ -23,5 +24,6 @@
     </div>
     <!--Script-->
     <script src="{{mix('js/app.js')}}"></script>
+    @yield('scripts')
 </body>
 </html>
