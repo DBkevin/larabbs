@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable,MustVerifyEmailTrait;
+    use Notifiable, MustVerifyEmailTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','introduction','avatar'
+        'name', 'email', 'password', 'introduction', 'avatar'
     ];
 
     /**
@@ -37,8 +37,14 @@ class User extends Authenticatable implements MustVerifyEmailContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    public function topics(){
+
+    public function topics()
+    {
         return $this->hasMany(Topic::class);
+    }
+
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
     }
 }
