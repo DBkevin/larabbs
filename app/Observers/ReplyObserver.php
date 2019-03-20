@@ -4,14 +4,18 @@ namespace App\Observers;
 
 use App\Models\Reply;
 
+use App\Notifications\TopicReplied;
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
 class ReplyObserver
 {
-    public function creating(Reply $reply)
+    public function created(Reply $reply)
     {
-        //
+     $reply->topic->reply_count=$reply->topic->replies->count();   //
+     $reply->topic->save();
+     //通知话题作者有新评论
+     $reply->topic->user->notify(new TopicReplied($reply));
     }
 
     public function updating(Reply $reply)
@@ -25,14 +29,12 @@ class ReplyObserver
         //判断过滤后是否为空
         $content = clean($reply->content, 'user_topic_body');
         if (empty($content)) {
-            $content = '空';
-        } else {
-            $reply->content = $content;
-            //不严谨的做法
-            // $reply->topic->increment('reply_count',1);
-            $reply->topic->reply_count = $reply->topic->replies->count();
-            $reply->topic->save();
+            $content="违规内容已屏蔽";
         }
+        $reply->content = $content;
+        //不严谨的做法
+        // $reply->topic->increment('reply_count',1);
+        $reply->topic->reply_count = $reply->topic->replies->count();
+        $reply->topic->save();
     }
 }
-
