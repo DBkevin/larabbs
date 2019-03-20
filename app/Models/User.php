@@ -39,6 +39,28 @@ class User extends Authenticatable implements MustVerifyEmailContract
         $this->unreadNotifications->markAsRead();
     }
     /**
+     * 密码修改器
+     *
+     * @param [type] $value
+     * @return void
+     */
+    public function setPasswordAttribute($value){
+        //如果值得长度等于60,既认为是做过加密的情况
+        if(strlen($value)!=60){
+            //不等于60,做密码加密
+            $value=bcrypt($value);
+        }
+        $this->attributes['password']=$value;
+    }
+    public function setAvatarAttribute($path){
+        //如果不是'http'字串开头,那就是从后台上传的,需要补全URL
+        if(!starts_with($path,'http')){
+            //拼接完整的URL
+            $path=config('app.url')."/uploads/images/avatars/$path";
+        }
+        $this->attributes['avatar']=$path;
+    }
+    /**
      * 
      * The attributes that are mass assignable.
      *
