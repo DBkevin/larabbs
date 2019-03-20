@@ -27,8 +27,7 @@ class RepliesController extends Controller
 	{
 		$this->authorize('destroy', $reply);
 		$reply->delete();
-
-		return redirect()->to($reply->topic->like())->width('success','评论删除成功');
+		return redirect()->to($reply->topic->like())->with('success','评论删除成功');
 
 	}
 }
