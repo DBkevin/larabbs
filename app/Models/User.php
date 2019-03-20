@@ -18,13 +18,24 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function notify($instance){
         //如果要通知的人是当前用户,就不要用通知了
         if($this->id==Auth::id()){
-            return ;
+            return;
         }
         //只有数据库类型通知才需要提醒,直接发送email或者其他的都pass
         if(method_exists($instance,'toDatabase')){
             $this->increment('notification_count');
         }
         $this->laravelNotify($instance);
+    }
+    /**
+     * 清除评论
+     *
+     * @return void
+     */
+      public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
     /**
      * 
