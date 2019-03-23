@@ -74,7 +74,10 @@ return array(
             'categories',
             'topics',
             'replies',
-        ]
+        ],
+        '站点管理'=>[
+            'settings.site',
+        ],
     ],
 
     /*  权限控制的回调函数。
