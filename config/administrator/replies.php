@@ -44,7 +44,7 @@ return [
             'type'=>'relationship',
             'name_field'=>'name',
             'autocomplete'=>true,
-            'search_fields'=>array("CONCAT(id,'',name)"),
+            'search_fields'=>["CONCAT(id,'',name)"],
             'options_sort_field'=>"id",
         ],
         'topic'=>[
