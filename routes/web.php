@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','PagesController@root')->name('root');
+Route::get('/','TopicsController@index')->name('root');
 Route::get('/help','PagesController@help')->name('help');
 Route::get('/about','PagesController@about')->name('about');
 
