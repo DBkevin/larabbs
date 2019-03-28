@@ -228,5 +228,19 @@ return [
         ],
 
     ],
-
-];
+    /**
+     * 接口频率限制
+     */
+    'rate_limits'=>[
+        //访问频率限制,次数/分钟
+        'access'=>[
+            'expores'=>env("RATE_LIMITS_EXPIRES",1),
+            'limit'=>env('RATE_LIMITS',60), 
+        ],
+        //登陆相关 ,次数/分钟
+        'sign'=>[
+            'expores'=>env('SIGN_RATE_LIMITS_EXPIRES',1),
+            'limit'=>env('SIGN_RATE_LIMITS',10),
+        ],
+    ],
+]; 
